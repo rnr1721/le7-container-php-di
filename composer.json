@@ -1,0 +1,38 @@
+{
+    "name": "rnr1721/le7-container-php-di",
+    "description": "PHP-DI dependent container for le7 PHP MVC framework",
+    "keywords": ["le7", "le7-framework", "framework", "container", "component"],
+    "authors": [
+        {
+            "name": "Eugeny G",
+            "email": "rnr1721@gmail.com",
+            "homepage": "https://xhamster.biz.ua",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "stable",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Core\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=8.1",
+        "php-di/php-di": "^7.0",
+        "rnr1721/le7-core": "^1.1"
+    },
+    "require-dev": {
+        "vimeo/psalm": "^5.7",
+        "phpunit/phpunit": "^10.0"
+    },
+    "scripts": {
+        "test": [
+            "@phpunit",
+            "@psalm"
+        ],
+        "phpunit": "phpunit",
+        "psalm": "psalm"
+    }
+}

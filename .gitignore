@@ -1,0 +1,7 @@
+/nbproject
+/vendor
+/composer.lock
+/.phpunit.result.cache
+/.phpunit.cache
+/phpDocumentor.phar
+/.phpdoc/

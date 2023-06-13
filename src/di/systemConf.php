@@ -40,18 +40,18 @@ return [
     ConfigInterface::class => factory(function (ContainerInterface $c) {
         $cache = $c->get(CacheInterface::class);
         $factory = new ConfigFactoryGeneric($cache);
-        if (defined('BASE_PATH')) {
+        if (!defined('BASE_PATH')) {
             throw new RuntimeException('Please define BASE_PATH constant');
         }
         return $factory->harvest(BASE_PATH . DS . 'config');
     }),
     MiddlewareFactoryInterface::class => autowire(MiddlewareFactoryDefault::class),
     MessageFactoryInterface::class => get(MessageFactoryGeneric::class),
-    MessageCollectionInterface::class => factory(function (ContainerInterface $c) : MessageCollectionInterface {
+    MessageCollectionInterface::class => factory(function (ContainerInterface $c): MessageCollectionInterface {
         $factory = $c->get(MessageFactoryInterface::class);
         return $factory->getMessagesSession();
     }),
-    MessageCollectionFlashInterface::class => factory(function (ContainerInterface $c) : MessageCollectionFlashInterface {
+    MessageCollectionFlashInterface::class => factory(function (ContainerInterface $c): MessageCollectionFlashInterface {
         $factory = $c->get(MessageFactoryInterface::class);
         return $factory->getMessagesSession();
     }),

@@ -10,10 +10,23 @@ use function array_merge,
              is_array,
              glob;
 
+/**
+ * Factory to make PHP-DI Container instance from two dirs - app and system
+ */
 class ContainerFactoryPhpDi implements ContainerFactoryInterface
 {
 
+    /**
+     * Directory for compiled container
+     * @var string
+     */
     private string $diCompiledFolder;
+
+    /**
+     * Array of paths with DI configs
+     * 
+     * @var array
+     */
     private array $configDir;
 
     public function __construct(
@@ -28,6 +41,12 @@ class ContainerFactoryPhpDi implements ContainerFactoryInterface
         $this->diCompiledFolder = $diCompiledFolder;
     }
 
+    /**
+     * Get ready-to-use container with definitions
+     * 
+     * @param bool $isProduction Production flag for compile container
+     * @return ContainerInterface
+     */
     public function getContainer(bool $isProduction): ContainerInterface
     {
 
@@ -46,7 +65,13 @@ class ContainerFactoryPhpDi implements ContainerFactoryInterface
         return $builder->build();
     }
 
-    public function getDefinitions(): array
+    /**
+     * Get PHP-DI container definitions
+     * 
+     * @return array
+     * @throws RuntimeException
+     */
+    protected function getDefinitions(): array
     {
         $filesApp = $this->getDir('app');
         $filesSystem = $this->getDir('system');
@@ -61,7 +86,14 @@ class ContainerFactoryPhpDi implements ContainerFactoryInterface
         return array_replace($defApp, $defSystem);
     }
 
-    public function scanDir(array $files): array
+    /**
+     * Scan dir and return single config array from one folder
+     * 
+     * @param array $files 
+     * @return array Files list
+     * @throws RuntimeException
+     */
+    protected function scanDir(array $files): array
     {
         $definitions = [];
         foreach ($files as $filename) {
@@ -78,7 +110,13 @@ class ContainerFactoryPhpDi implements ContainerFactoryInterface
         return $definitions;
     }
 
-    private function getDir(string $place): array
+    /**
+     * Get list of config directory files
+     * 
+     * @param string $place Directory with PHP-DI configs
+     * @return array List of files
+     */
+    protected function getDir(string $place): array
     {
         return glob($this->configDir[$place] . DIRECTORY_SEPARATOR . "*Conf.php");
     }

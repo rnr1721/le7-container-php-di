@@ -31,7 +31,6 @@ use Core\Factories\MiddlewareFactoryDefault;
 use Core\Config\ConfigFactoryGeneric;
 use Psr\SimpleCache\CacheInterface;
 use Psr\Container\ContainerInterface;
-use \RuntimeException;
 use function DI\factory;
 use function DI\get;
 use function DI\autowire;
